@@ -1,6 +1,7 @@
 body {
     font-family: "Lato", sans-serif;
     transition: background-color .5s;
+    background-color: #eef2ff;
 }
 
 /*側邊欄選擇器*/
@@ -30,7 +31,7 @@ body {
 
 /*側欄標籤和關閉按鈕光標的效果*/
 .sidenav a:hover, .offcanvas a:focus{
-    color: #f1f1f1;
+    color: #eef2ff;
 }
 
 /*側欄和關閉按鈕的位置選擇器*/

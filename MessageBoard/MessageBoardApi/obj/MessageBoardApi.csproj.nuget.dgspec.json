@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\Core\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj": {}
+    "D:\\code\\Core\\-NoviceSideProject\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj": {}
   },
   "projects": {
-    "D:\\code\\Core\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj": {
+    "D:\\code\\Core\\-NoviceSideProject\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\Core\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj",
+        "projectUniqueName": "D:\\code\\Core\\-NoviceSideProject\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj",
         "projectName": "MessageBoardApi",
-        "projectPath": "D:\\code\\Core\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj",
+        "projectPath": "D:\\code\\Core\\-NoviceSideProject\\MessageBoard\\MessageBoardApi\\MessageBoardApi.csproj",
         "packagesPath": "C:\\Users\\2003005.IEAD\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\Core\\MessageBoard\\MessageBoardApi\\obj\\",
+        "outputPath": "D:\\code\\Core\\-NoviceSideProject\\MessageBoard\\MessageBoardApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
