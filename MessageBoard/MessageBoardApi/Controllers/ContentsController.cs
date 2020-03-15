@@ -78,6 +78,7 @@ namespace MessageBoardApi.Controllers
         // POST: api/Contents
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        //[EnableCors]
         [HttpPost]
         public async Task<ActionResult<Content>> PostContent(Content content)
         {
