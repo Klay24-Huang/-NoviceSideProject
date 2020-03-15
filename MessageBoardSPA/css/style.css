@@ -6,6 +6,12 @@ body {
   background-color: #eef2ff;
 }
 
+.block {
+  background-color: #d6daf0;
+  border: 1px solid #b7c5d9;
+  padding: 2px;
+}
+
 /*側邊欄選擇器*/
 .sidenav {
   height: 100%;

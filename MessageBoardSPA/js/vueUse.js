@@ -5,14 +5,17 @@ const vm = new Vue({
     data: {
         sideBar: {},
         newThread: { Name: "", Title: "", Comment: "" },
-        allThreads: {}
+        allThreads: {},
+        allContents: {}
     },
     methods: {
-        newThreadPost: CreateThread
+        newThreadPost: CreateThread,
     }
 })
 //取得sodebar內容
 ajaxGetSideBarContent()
+//取得content內容
+GetContent()
 
 function CreateThread(){
     axios.post(url+'threads', { CategoryId: 1 })
@@ -44,6 +47,27 @@ function CreateContent() {
     .catch((error) => { console.error(error) })
 }
 
+function GetContent() {
+    axios.get(url +'GetContents/'+"1")
+    .then((res) => { 
+        vm.$data.allContents = groupBy(res.data, function(item){
+            return [item.threadId]
+        }).reverse() 
+    })
+    .catch((error) => { console.error(error) })
+}
+
+function groupBy( array , f ) {
+    let groups = {};
+    array.forEach( function( o ) {
+        let group = JSON.stringify( f(o) );
+        groups[group] = groups[group] || [];
+        groups[group].push( o );
+    });
+    return Object.keys(groups).map( function( group ) {
+        return groups[group];
+    });
+}
 // function CreateThread() {
 //     $.ajax({
 //         type: "post",
