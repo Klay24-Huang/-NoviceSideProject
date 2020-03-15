@@ -44,10 +44,18 @@
                 </div>
                 <div class="offset-3"></div>
             </div>
-            <hr>
-            <div class="row mt-5">
-                <div class="col-12">123</div>
-                <div class="col-12">123</div>
+            <hr class="mb-5">
+            <div class="row" v-for="(item) in allContents">
+                <div class="block col-12 mt-1" v-for="i in item">
+                    <div class="col-12">
+                        <input type="checkbox" value="delete">
+                        <span class="ml-2">{{i.userName}}</span>
+                        <span class="ml-2"> {{i.contentTime}}</span>
+                        <span class="ml-2">No.{{i.contentId}}</span>
+                    </div>
+                    <div class="col-12">{{i.contentText}}</div>
+                </div>
+                <hr class="mb-2 col-12">
             </div>
         </div>
     </div>
