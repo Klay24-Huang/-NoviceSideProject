@@ -15,6 +15,22 @@
 
 <body>
     <div id="all">
+        <!-- 回復方塊 -->
+        <div class="reply ">
+            <div class="row">
+                <div class="col-12 d-flex"><button class="ml-auto" @click.prevent="closeReply">close</button></div>
+                <div class="newThread col-12">
+                        <label class="col-3 ml-2" for="exampleInputEmail1">Name</label>
+                        <input type="text" class="col-7" v-model="reply.Name">
+                    <div class="row">
+                        <label class="col-3 ml-2" for="exampleInputEmail1">Comment</label>
+                        <textarea cols="45" rows="5" v-model="reply.Comment">
+                            </textarea>
+                    </div>
+                    <button class="btn btn-primary" @click="newContent($event)">Post</button>
+                </div>
+            </div>
+        </div>
         <!--側欄界面設計-->
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -23,7 +39,9 @@
             </a>
         </div>
         <div class="container" id="main">
+            <!-- 側邊欄開關 -->
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <!-- 投稿新文章 -->
             <div class="newThread row">
                 <div class="offset-3"></div>
                 <div class="col-6">
@@ -31,27 +49,24 @@
                         <label class="col-3" for="exampleInputEmail1">Name</label>
                         <input type="text" class="form-control col-8" v-model="newThread.Name">
                     </div>
-                    <!-- <div class="row">
-                        <label class="col-3" for="exampleInputEmail1">Title</label>
-                        <input type="text" class="form-control col-8" v-model="newThread.Title">
-                    </div> -->
                     <div class="row">
                         <label class="col-3" for="exampleInputEmail1">Comment</label>
                         <textarea cols="45" rows="5" v-model="newThread.Comment">
-                                    </textarea>
+                        </textarea>
                     </div>
                     <button class="btn btn-primary" @click="newThreadPost">Post</button>
                 </div>
                 <div class="offset-3"></div>
             </div>
             <hr class="mb-5">
-            <div class="row" v-for="(item) in allContents">
-                <div class="block col-12 mt-1" v-for="i in item">
-                    <div class="col-12">
+            <div class="row" v-for="item in allContents">
+                <div class="block col-12 mt-1" v-for="i,index in item" v-bind:data-threadId="i.threadId">
+                    <div class="col-12 d-flex">
                         <input type="checkbox" value="delete">
-                        <span class="ml-2">{{i.userName}}</span>
+                        <span class="ml-2 text-success">{{i.userName}}</span>
                         <span class="ml-2"> {{i.contentTime}}</span>
                         <span class="ml-2">No.{{i.contentId}}</span>
+                        <button v-if="index == 0" class="ml-auto" @click.prevent="showReply($event)">reply</button>
                     </div>
                     <div class="col-12">{{i.contentText}}</div>
                 </div>

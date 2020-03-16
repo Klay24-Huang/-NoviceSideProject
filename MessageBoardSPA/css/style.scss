@@ -4,10 +4,24 @@ body {
     background-color: #eef2ff;
 }
 
+// 留言方塊
 .block{
     background-color: #d6daf0;
     border: 1px solid #b7c5d9;
     padding: 2px;
+}
+
+//回複方塊
+.reply {
+    display: none;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    padding: 20px;
+    border: 3px solid black;
+    background-color: #eef2ff;
+    z-index: 1002;
+    overflow: auto;
 }
 
 /*側邊欄選擇器*/
