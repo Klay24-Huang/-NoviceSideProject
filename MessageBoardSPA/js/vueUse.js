@@ -1,5 +1,8 @@
 const url = "https://localhost:44392/api/"
-let replyThreadId = 0;
+const pageUrl = "http://127.0.0.1:5500/html/index.html"
+let replyThreadId = -1;
+let ContentId = -1;
+let categoryId = 1;
 
 const vm = new Vue({
     el: '#all',
@@ -8,19 +11,62 @@ const vm = new Vue({
         newThread: { Name: "", Comment: "" },
         allThreads: {},
         allContents: {},
-        reply: { Name: "", Comment: "" }
+        reply: { Name: "", Comment: "" },
+        singleContent:{},
+        modify: false
     },
     methods: {
         newThreadPost: CreateThread,
         closeReply: CloseReply,
         showReply(e) { ShowReply(e) },
-        newContent: NewContent
+        newContent: NewContent,
+        showModify(e){ ShowModify(e)},
+        deleteContent: DeleteContent,
+        modifyContent: ModifyContent
     }
 })
 //取得sodebar內容
 ajaxGetSideBarContent()
 //取得content內容
 GetContent()
+
+function ModifyContent() {
+    axios.put(url + "contents/"+ ContentId,{
+        ContentId: ContentId,
+        ContentText: vm.$data.reply.Comment,
+        UserName: vm.$data.reply.Name,
+        ContentTime: vm.$data.singleContent.contentTime,
+        PicUrl:vm.$data.singleContent.picUrl,
+        ThreadId: vm.$data.singleContent.threadId
+    }).then(function (response) {
+        CloseReply()
+            GetContent()
+            vm.$data.reply.Comment = ""
+            vm.$data.reply.Name = ""
+    }).catch((error) => { alert(error) })
+}
+
+function ReloadPage() {
+    window.location.reload(pageUrl)
+}
+
+function DeleteContent() {
+    axios.delete(url + "contents/"+ ContentId).then(function (response) {
+        CloseReply()
+        GetContent()
+    }).catch((error) => { alert(error) })
+}
+
+function ShowModify(e) {
+    vm.$data.modify = true
+    ContentId = $(e.target).parent().data('contentid')
+    axios.get(url + "contents/"+ ContentId).then(function (response) {
+        vm.$data.reply.Name = response.data.userName
+        vm.$data.reply.Comment= response.data.contentText
+        vm.$data.singleContent = response.data
+        document.getElementsByClassName('reply')[0].style.display = 'block'
+    }).catch((error) => { alert(error) })
+}
 
 function NewContent() {
     axios.post(url + 'contents', {
@@ -46,6 +92,7 @@ function ShowReply(e) {
 
 function CloseReply() {
     document.getElementsByClassName('reply')[0].style.display = 'none'
+    vm.$data.modify = false
 }
 
 function CreateThread() {
@@ -79,8 +126,9 @@ function CreateContent() {
         .catch((error) => { console.error(error) })
 }
 
+//取得一個版面所有內容
 function GetContent() {
-    axios.get(url + 'GetContents/' + "1")
+    axios.get(url + 'GetContents/' + categoryId)
         .then((res) => {
             vm.$data.allContents = groupBy(res.data, function (item) {
                 return [item.threadId]
