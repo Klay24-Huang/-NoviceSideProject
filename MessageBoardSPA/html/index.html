@@ -38,13 +38,17 @@
         <!--側欄界面設計-->
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <a href="#" v-for="(item) in sideBar">
+            <a href="#" v-for="(item) in sideBar" v-bind:data-categoryId="item.categoryId" 
+            v-bind:data-categoryName="item.categoryName" @click.prevent="changeBoard($event)">
                 {{item.categoryName}}
             </a>
         </div>
         <div class="container" id="main">
             <!-- 側邊欄開關 -->
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+            <div class="row mb-2">
+                <div class="col-12 text-center display-4">{{title}}</div>
+            </div>
             <!-- 投稿新文章 -->
             <div class="newThread row">
                 <div class="offset-3"></div>
@@ -75,7 +79,7 @@
                     </div>
                     <div class="col-12">{{i.contentText}}</div>
                 </div>
-                <hr class="mb-2 col-12">
+                <hr class="mb-3 col-12">
             </div>
         </div>
     </div>

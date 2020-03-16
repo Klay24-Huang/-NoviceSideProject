@@ -13,7 +13,8 @@ const vm = new Vue({
         allContents: {},
         reply: { Name: "", Comment: "" },
         singleContent:{},
-        modify: false
+        modify: false,
+        title: "新聞"
     },
     methods: {
         newThreadPost: CreateThread,
@@ -22,13 +23,20 @@ const vm = new Vue({
         newContent: NewContent,
         showModify(e){ ShowModify(e)},
         deleteContent: DeleteContent,
-        modifyContent: ModifyContent
+        modifyContent: ModifyContent,
+        changeBoard (e){ ChangeBoard(e)}
     }
 })
 //取得sodebar內容
 ajaxGetSideBarContent()
 //取得content內容
 GetContent()
+
+function ChangeBoard(e) {
+    categoryId = $(e.target).data('categoryid');
+    vm.$data.title = $(e.target).data('categoryname');
+    GetContent()
+}
 
 function ModifyContent() {
     axios.put(url + "contents/"+ ContentId,{
@@ -96,7 +104,7 @@ function CloseReply() {
 }
 
 function CreateThread() {
-    axios.post(url + 'threads', { CategoryId: 1 })
+    axios.post(url + 'threads', { CategoryId: categoryId })
         .then(function (response) {
             GetThreadId()
         })
@@ -122,6 +130,7 @@ function CreateContent() {
         .then(function (response) {
             vm.$data.newThread.Comment = ""
             vm.$data.newThread.Name = ""
+            GetContent()
         })
         .catch((error) => { console.error(error) })
 }
