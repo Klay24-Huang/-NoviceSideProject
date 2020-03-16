@@ -27,7 +27,11 @@
                         <textarea cols="45" rows="5" v-model="reply.Comment">
                             </textarea>
                     </div>
-                    <button class="btn btn-primary" @click="newContent($event)">Post</button>
+                    <div class="mt-2">
+                        <button class="btn btn-primary" v-if="modify" @click.prevent="modifyContent">Modify</button>
+                        <button class="btn btn-danger" v-if="modify" @click.prevent="deleteContent">Delete</button>
+                        <button class="btn btn-primary" v-else @click="newContent($event)">Post</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,12 +65,13 @@
             <hr class="mb-5">
             <div class="row" v-for="item in allContents">
                 <div class="block col-12 mt-1" v-for="i,index in item" v-bind:data-threadId="i.threadId">
-                    <div class="col-12 d-flex">
+                    <div class="col-12 d-flex" v-bind:data-contentid="i.contentId">
                         <input type="checkbox" value="delete">
                         <span class="ml-2 text-success">{{i.userName}}</span>
                         <span class="ml-2"> {{i.contentTime}}</span>
                         <span class="ml-2">No.{{i.contentId}}</span>
-                        <button v-if="index == 0" class="ml-auto" @click.prevent="showReply($event)">reply</button>
+                        <button class="ml-auto"  @click.prevent="showModify($event)">modify</button>
+                        <button v-if="index == 0" class="" @click.prevent="showReply($event)">reply</button>
                     </div>
                     <div class="col-12">{{i.contentText}}</div>
                 </div>
