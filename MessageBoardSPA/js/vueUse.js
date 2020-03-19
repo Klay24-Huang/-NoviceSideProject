@@ -12,7 +12,7 @@ const vm = new Vue({
         allThreads: {},
         allContents: {},
         reply: { Name: "", Comment: "" },
-        singleContent:{},
+        singleContent: {},
         modify: false,
         title: "新聞"
     },
@@ -21,10 +21,10 @@ const vm = new Vue({
         closeReply: CloseReply,
         showReply(e) { ShowReply(e) },
         newContent: NewContent,
-        showModify(e){ ShowModify(e)},
+        showModify(e) { ShowModify(e) },
         deleteContent: DeleteContent,
         modifyContent: ModifyContent,
-        changeBoard (e){ ChangeBoard(e)}
+        changeBoard(e) { ChangeBoard(e) }
     }
 })
 //取得sodebar內容
@@ -39,18 +39,18 @@ function ChangeBoard(e) {
 }
 
 function ModifyContent() {
-    axios.put(url + "contents/"+ ContentId,{
+    axios.put(url + "contents/" + ContentId, {
         ContentId: ContentId,
         ContentText: vm.$data.reply.Comment,
         UserName: vm.$data.reply.Name,
         ContentTime: vm.$data.singleContent.contentTime,
-        PicUrl:vm.$data.singleContent.picUrl,
+        PicUrl: vm.$data.singleContent.picUrl,
         ThreadId: vm.$data.singleContent.threadId
     }).then(function (response) {
         CloseReply()
-            GetContent()
-            vm.$data.reply.Comment = ""
-            vm.$data.reply.Name = ""
+        GetContent()
+        vm.$data.reply.Comment = ""
+        vm.$data.reply.Name = ""
     }).catch((error) => { alert(error) })
 }
 
@@ -59,7 +59,7 @@ function ReloadPage() {
 }
 
 function DeleteContent() {
-    axios.delete(url + "contents/"+ ContentId).then(function (response) {
+    axios.delete(url + "contents/" + ContentId).then(function (response) {
         CloseReply()
         GetContent()
     }).catch((error) => { alert(error) })
@@ -68,9 +68,9 @@ function DeleteContent() {
 function ShowModify(e) {
     vm.$data.modify = true
     ContentId = $(e.target).parent().data('contentid')
-    axios.get(url + "contents/"+ ContentId).then(function (response) {
+    axios.get(url + "contents/" + ContentId).then(function (response) {
         vm.$data.reply.Name = response.data.userName
-        vm.$data.reply.Comment= response.data.contentText
+        vm.$data.reply.Comment = response.data.contentText
         vm.$data.singleContent = response.data
         document.getElementsByClassName('reply')[0].style.display = 'block'
     }).catch((error) => { alert(error) })
@@ -81,7 +81,7 @@ function NewContent() {
         ThreadId: replyThreadId,
         ContentText: vm.$data.reply.Comment,
         UserName: vm.$data.reply.Name,
-        ContentTime: new XDate(),
+        ContentTime: new XDate().addHours(8),
         PicUrl: ""
     })
         .then(function (response) {
@@ -101,6 +101,8 @@ function ShowReply(e) {
 function CloseReply() {
     document.getElementsByClassName('reply')[0].style.display = 'none'
     vm.$data.modify = false
+    vm.$data.reply.Comment = ""
+    vm.$data.reply.Name = ""
 }
 
 function CreateThread() {
@@ -124,7 +126,7 @@ function CreateContent() {
         ThreadId: id,
         ContentText: vm.$data.newThread.Comment,
         UserName: vm.$data.newThread.Name,
-        ContentTime: new XDate(),
+        ContentTime: new XDate().addHours(8),
         PicUrl: ""
     })
         .then(function (response) {

@@ -28,8 +28,11 @@ namespace MessageBoardApi.Controllers
                           where t.CategoryId == id
                           orderby c.ContentTime
                           select c;
+
             return content;
         }
+
+
 
         //[HttpGet("{id}")]
         //public async Task<IEnumerable<List<Content>>> Get(int id)
